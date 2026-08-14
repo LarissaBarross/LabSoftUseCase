@@ -6,16 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AppTask.Models;
+using AppTask.Models.Services;
 
 namespace AppTask.Controllers
 {
     public class TarefaController : Controller
     {
         private readonly DbTasksContext _context;
+        private RegraTarefa _regraTarefa;
 
         public TarefaController(DbTasksContext context)
         {
             _context = context;
+            _regraTarefa = new RegraTarefa();
         }
 
         // GET: Tarefa
@@ -74,6 +77,7 @@ namespace AppTask.Controllers
             return View(tarefa);
         }
 
+
         // GET: Tarefa/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -87,7 +91,7 @@ namespace AppTask.Controllers
             {
                 return NotFound();
             }
-            ViewData["CodigoFuncionario"] = new SelectList(_context.Funcionarios, "Codigo", "Nome", tarefa.FuncionarioId);
+            ViewData["FuncionarioId"] = new SelectList(_context.Funcionarios, "Codigo", "Nome", tarefa.FuncionarioId);
             return View(tarefa);
         }
 
@@ -96,14 +100,14 @@ namespace AppTask.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Codigo,Descricao,DataPlanejada,DataIniciada,DataFinalizada,DataCancelada,StatusTarefa,Prazo,CodigoFuncionario")] Tarefa tarefa)
+        public async Task<IActionResult> Edit(int id, [Bind("Codigo,Descricao,DataPlanejada,DataIniciada,DataFinalizada,DataCancelada,StatusTarefa,Prazo,FuncionarioId")] Tarefa tarefa)
         {
             if (id != tarefa.Codigo)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid & _regraTarefa.validarDataFinal(tarefa.DataIniciada, tarefa.DataFinalizada))
             {
                 try
                 {
@@ -123,7 +127,7 @@ namespace AppTask.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CodigoFuncionario"] = new SelectList(_context.Funcionarios, "Codigo", "Nome", tarefa.FuncionarioId);
+            ViewData["FuncionarioId"] = new SelectList(_context.Funcionarios, "Codigo", "Nome", tarefa.FuncionarioId);
             return View(tarefa);
         }
 
