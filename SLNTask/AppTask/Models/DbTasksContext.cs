@@ -65,9 +65,16 @@ public partial class DbTasksContext : DbContext
             entity.Property(e => e.Cargo)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+
             entity.Property(e => e.Nome)
                 .HasMaxLength(100)
                 .IsUnicode(false);
+
+            entity.HasOne(d => d.Gerente)
+                .WithMany(p => p.FuncionariosGerenciados)
+                .HasForeignKey(d => d.CodigoGerente)
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasConstraintName("FK_Funcionario_Gerente");
         });
 
         modelBuilder.Entity<Incidente>(entity =>
