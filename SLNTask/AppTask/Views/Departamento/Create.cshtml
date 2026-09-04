@@ -4,56 +4,122 @@
     ViewData["Title"] = "Novo Departamento";
 }
 
-<h1 class="mb-4">Cadastrar Novo Departamento</h1>
+<div class="form-page">
 
-<div class="row">
-    <div class="col-md-6">
+    <div class="page-header">
 
-        <form action="/Departamento/Create" method="post">
+        <div>
+            <span class="page-subtitle">CADASTROS</span>
+
+            <h1>Novo Departamento</h1>
+
+            <p>
+                Cadastre um novo departamento no sistema.
+            </p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            ← Voltar
+        </a>
+
+    </div>
+
+
+    <div class="form-card">
+
+        <div class="form-card-header">
+
+            <div class="form-icon">
+                D
+            </div>
+
+            <div>
+                <h2>Informações do departamento</h2>
+
+                <p>
+                    Preencha os dados abaixo para cadastrar o departamento.
+                </p>
+            </div>
+
+        </div>
+
+
+        <form asp-action="Create" method="post">
 
             @Html.AntiForgeryToken()
 
-            <div class="mb-3">
-                <label for="Descricao" class="form-label">
+            <div asp-validation-summary="ModelOnly"
+                 class="validation-message">
+            </div>
+
+
+            <!-- DESCRIÇÃO -->
+
+            <div class="input-group">
+
+                <label asp-for="Descricao">
                     Descrição
                 </label>
 
-                <input type="text"
-                       id="Descricao"
-                       name="Descricao"
+                <input asp-for="Descricao"
                        class="form-control"
                        placeholder="Digite a descrição do departamento"
-                       required />
+                       autocomplete="off" />
+
+                <span asp-validation-for="Descricao"
+                      class="text-danger">
+                </span>
+
             </div>
 
-            <div class="mb-3">
-                <label for="Ativo" class="form-label">
+
+            <!-- ATIVO -->
+
+            <div class="input-group">
+
+                <label asp-for="Ativo">
                     Ativo
                 </label>
 
-                <input type="text"
-                       id="Ativo"
-                       name="Ativo"
+                <input asp-for="Ativo"
                        class="form-control"
                        placeholder="Digite o status"
-                       required />
+                       autocomplete="off" />
+
+                <span asp-validation-for="Ativo"
+                      class="text-danger">
+                </span>
+
             </div>
 
-            <div class="mb-3 d-flex gap-2">
+
+            <!-- BOTÕES -->
+
+            <div class="form-actions">
+
+                <a asp-action="Index"
+                   class="cancel-button">
+                    Cancelar
+                </a>
 
                 <button type="submit"
-                        class="btn btn-primary">
-                    Salvar Departamento
+                        class="save-button">
+                    ✓ Salvar Departamento
                 </button>
-
-                <a href="/Departamento/Index"
-                   class="btn btn-secondary">
-                    Voltar para a Lista
-                </a>
 
             </div>
 
         </form>
 
     </div>
+
 </div>
+
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

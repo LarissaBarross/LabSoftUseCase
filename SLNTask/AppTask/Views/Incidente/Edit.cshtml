@@ -1,49 +1,159 @@
 ﻿@model AppTask.Models.Incidente
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Incidente";
 }
 
-<h1>Edit</h1>
+<div class="form-page">
 
-<h4>Incidente</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Codigo" />
-            <div class="form-group">
-                <label asp-for="DescricaoProblema" class="control-label"></label>
-                <input asp-for="DescricaoProblema" class="form-control" />
-                <span asp-validation-for="DescricaoProblema" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DataIncidente" class="control-label"></label>
-                <input asp-for="DataIncidente" class="form-control" />
-                <span asp-validation-for="DataIncidente" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Solucao" class="control-label"></label>
-                <input asp-for="Solucao" class="form-control" />
-                <span asp-validation-for="Solucao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Resolvido" class="control-label"></label>
-                <input asp-for="Resolvido" class="form-control" />
-                <span asp-validation-for="Resolvido" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+    <!-- Cabeçalho -->
+    <div class="page-header">
+
+        <div>
+            <span class="page-subtitle">GERENCIAMENTO</span>
+
+            <h1>Editar Incidente</h1>
+
+            <p>
+                Altere as informações do incidente cadastrado.
+            </p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            ← Voltar
+        </a>
+
     </div>
+
+
+    <!-- Formulário -->
+    <div class="form-card">
+
+        <div class="form-card-header">
+
+            <div class="form-icon incident-form-icon">
+                !
+            </div>
+
+            <div>
+                <h2>Informações do incidente</h2>
+
+                <p>
+                    Atualize os dados abaixo.
+                </p>
+            </div>
+
+        </div>
+
+
+        <form asp-action="Edit" method="post">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" asp-for="Codigo" />
+
+            <div asp-validation-summary="ModelOnly"
+                 class="validation-message">
+            </div>
+
+
+            <div class="input-group">
+
+                <label asp-for="DescricaoProblema">
+                    Descrição do Problema
+                </label>
+
+                <input asp-for="DescricaoProblema"
+                       class="form-control"
+                       placeholder="Digite a descrição do problema"
+                       autocomplete="off" />
+
+                <span asp-validation-for="DescricaoProblema"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label asp-for="DataIncidente">
+                    Data do Incidente
+                </label>
+
+                <input asp-for="DataIncidente"
+                       type="datetime-local"
+                       class="form-control" />
+
+                <span asp-validation-for="DataIncidente"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label asp-for="Solucao">
+                    Solução
+                </label>
+
+                <input asp-for="Solucao"
+                       class="form-control"
+                       placeholder="Digite a solução aplicada"
+                       autocomplete="off" />
+
+                <span asp-validation-for="Solucao"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label asp-for="Resolvido">
+                    Resolvido
+                </label>
+
+                <input asp-for="Resolvido"
+                       class="form-control"
+                       placeholder="Ex: Sim ou Não"
+                       autocomplete="off" />
+
+                <span asp-validation-for="Resolvido"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- Botões -->
+            <div class="form-actions">
+
+                <a asp-action="Index"
+                   class="cancel-button">
+                    Cancelar
+                </a>
+
+                <button type="submit"
+                        class="save-button">
+                    ✓ Salvar Alterações
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
 }

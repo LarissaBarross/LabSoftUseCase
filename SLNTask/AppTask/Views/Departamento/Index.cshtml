@@ -1,63 +1,115 @@
 ﻿@model IEnumerable<AppTask.Models.Departamento>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Departamentos";
 }
 
-<h1 class="mb-4">Lista de Departamentos</h1>
+<div class="list-page-header">
 
-<p>
-    <a href="/Departamento/Create" class="btn btn-success text-white">
-        Novo
+    <div>
+        <div class="eyebrow">Cadastros</div>
+
+        <h1>Departamentos</h1>
+
+        <p>Gerencie os departamentos cadastrados no sistema.</p>
+    </div>
+
+    <a asp-action="Create" class="primary-btn">
+        <span class="plus">＋</span>
+        Novo departamento
     </a>
-</p>
 
-<table class="table table-striped table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th>Descrição</th>
-            <th>Ativo</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
+</div>
 
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descricao)
-                </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Ativo)
-                </td>
+<div class="list-card">
 
-                <td>
-                    <a href="/Departamento/Edit/@item.Codigo"
-                       class="btn btn-primary btn-sm text-white">
-                        Alterar
-                    </a>
+    <div class="list-card-top">
 
-                    <a href="/Departamento/Details/@item.Codigo"
-                       class="btn btn-success btn-sm text-white"
-                       style="background-color: #006400;">
-                        Detalhe
-                    </a>
+        <h2>Lista de departamentos</h2>
 
-                    <button type="button"
-                            class="btn btn-danger btn-sm text-white"
-                            data-bs-toggle="modal"
-                            data-bs-target="#deleteModal"
-                            data-id="@item.Codigo"
-                            data-descricao="@item.Descricao">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <span class="record-count">
+            @Model.Count() registros
+        </span>
+
+    </div>
+
+
+    <div class="table-scroll">
+
+        <table class="data-table">
+
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Ativo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="3" class="empty-state">
+                            Nenhum departamento cadastrado.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td class="strong-cell">
+                                @item.Descricao
+                            </td>
+
+
+                            <td>
+                                @item.Ativo
+                            </td>
+
+
+                            <td class="action-cell">
+
+                                <a asp-action="Edit"
+                                   asp-route-id="@item.Codigo"
+                                   class="table-action edit">
+                                    Editar
+                                </a>
+
+                                <a asp-action="Details"
+                                   asp-route-id="@item.Codigo"
+                                   class="table-action view">
+                                    Detalhes
+                                </a>
+
+                                <button type="button"
+                                        class="table-action delete"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal"
+                                        data-id="@item.Codigo"
+                                        data-descricao="@item.Descricao">
+                                    Excluir
+                                </button>
+
+                            </td>
+
+                        </tr>
+                    }
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
 
 
 <!-- Modal de Confirmação de Exclusão -->
@@ -68,28 +120,34 @@
      aria-labelledby="deleteModalLabel"
      aria-hidden="true">
 
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
 
         <div class="modal-content">
 
             <div class="modal-header bg-danger text-white">
 
-                <h5 class="modal-title" id="deleteModalLabel">
+                <h5 class="modal-title"
+                    id="deleteModalLabel">
                     Confirmação de Exclusão
                 </h5>
 
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
-                        aria-label="Close">
+                        aria-label="Fechar">
                 </button>
 
             </div>
 
+
             <div class="modal-body">
+
                 Deseja realmente excluir o departamento:
+
                 <strong id="departamentoDescricao"></strong>
+
             </div>
+
 
             <div class="modal-footer">
 
@@ -145,4 +203,5 @@
         });
 
     </script>
+
 }

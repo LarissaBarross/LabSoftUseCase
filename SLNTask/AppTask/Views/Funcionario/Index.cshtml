@@ -1,57 +1,241 @@
 ﻿@model IEnumerable<AppTask.Models.Funcionario>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Funcionários";
 }
 
-<h1 class="mb-4">Lista de Funcionários</h1>
+<div class="task-page">
 
-<p>
-    <a href="/Funcionario/Create" class="btn btn-success text-white">Novo</a>
-</p>
+    <!-- Cabeçalho -->
+    <div class="page-header">
 
-<table class="table table-striped table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th>Nome</th>
-            <th>Cargo</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
+        <div>
+            <span class="page-subtitle">CADASTROS</span>
 
-    <tbody>
-        @foreach (var item in Model)
+            <h1>Funcionários</h1>
+
+            <p>
+                Gerencie os funcionários cadastrados no sistema.
+            </p>
+        </div>
+
+        <a asp-action="Create" class="new-task">
+            ＋ Novo funcionário
+        </a>
+
+    </div>
+
+
+    <!-- Resumo -->
+    <div class="summary">
+
+        <div class="summary-card">
+
+            <div class="summary-icon purple">
+                👤
+            </div>
+
+            <div>
+                <span>Total de funcionários</span>
+
+                <strong>
+                    @Model.Count()
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon orange">
+                ▣
+            </div>
+
+            <div>
+                <span>Funcionários cadastrados</span>
+
+                <strong>
+                    @Model.Count()
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon green">
+                ✓
+            </div>
+
+            <div>
+                <span>Cadastros ativos</span>
+
+                <strong>
+                    @Model.Count()
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Cabeçalho da lista -->
+    <div class="list-header">
+
+        <div>
+
+            <h2>Lista de funcionários</h2>
+
+            <p>
+                Funcionários cadastrados no sistema
+            </p>
+
+        </div>
+
+        <span class="total-badge">
+            @Model.Count() registros
+        </span>
+
+    </div>
+
+
+    <!-- Funcionários -->
+    <div class="tasks-container">
+
+        @if (!Model.Any())
         {
-            <tr>
-                <td>@item.Nome</td>
-                <td>@item.Cargo</td>
+            <div class="empty">
 
-                <td>
-                    <a href="/Funcionario/Edit/@item.Codigo"
-                       class="btn btn-primary btn-sm text-white">
-                        Alterar
-                    </a>
+                <div class="empty-icon">
+                    👤
+                </div>
 
-                    <a href="/Funcionario/Details/@item.Codigo"
-                       class="btn btn-success btn-sm text-white"
-                       style="background-color: #006400;">
-                        Detalhe
-                    </a>
+                <h3>Nenhum funcionário cadastrado</h3>
 
-                    <button type="button"
-                            class="btn btn-danger btn-sm text-white"
-                            data-bs-toggle="modal"
-                            data-bs-target="#deleteModal"
-                            data-id="@item.Codigo"
-                            data-descricao="@item.Nome"
-                            data-action="/Funcionario/Delete/@item.Codigo">
-                        Delete
-                    </button>
-                </td>
-            </tr>
+                <p>
+                    Cadastre um novo funcionário para começar.
+                </p>
+
+                <a asp-action="Create" class="new-task">
+                    ＋ Novo funcionário
+                </a>
+
+            </div>
         }
-    </tbody>
-</table>
+        else
+        {
+            foreach (var item in Model)
+            {
+                <div class="task-card">
+
+                    <!-- Cabeçalho do funcionário -->
+                    <div class="task-top">
+
+                        <div>
+
+                            <span class="task-code">
+                                FUNCIONÁRIO #@item.Codigo
+                            </span>
+
+                            <h3>
+                                @item.Nome
+                            </h3>
+
+                        </div>
+
+                        <span class="task-status status-progress">
+                            @item.Cargo
+                        </span>
+
+                    </div>
+
+
+                    <!-- Informações -->
+                    <div class="task-details">
+
+                        <div class="detail">
+
+                            <span class="detail-icon">
+                                👤
+                            </span>
+
+                            <div>
+
+                                <small>Nome</small>
+
+                                <strong>
+                                    @item.Nome
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span class="detail-icon">
+                                ▣
+                            </span>
+
+                            <div>
+
+                                <small>Cargo</small>
+
+                                <strong>
+                                    @item.Cargo
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Ações -->
+                    <div class="task-card-footer">
+
+                        <div class="task-actions">
+
+                            <a asp-action="Details"
+                               asp-route-id="@item.Codigo"
+                               class="action view">
+                                Detalhes
+                            </a>
+
+
+                            <a asp-action="Edit"
+                               asp-route-id="@item.Codigo"
+                               class="action edit">
+                                Editar
+                            </a>
+
+
+                            <button type="button"
+                                    class="action delete"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal"
+                                    data-id="@item.Codigo"
+                                    data-descricao="@item.Nome"
+                                    data-action="/Funcionario/Delete/@item.Codigo">
+                                Excluir
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+        }
+
+    </div>
+
+</div>
 
 
 <!-- Modal de Confirmação de Exclusão -->
@@ -61,69 +245,99 @@
      aria-labelledby="deleteModalLabel"
      aria-hidden="true">
 
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <div class="modal-dialog modal-dialog-centered">
 
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="deleteModalLabel">
-                    Confirmação de Exclusão
-                </h5>
+        <div class="modal-content delete-modal">
+
+            <div class="modal-header-custom">
+
+                <div class="warning-icon">
+                    !
+                </div>
 
                 <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close">
+                        class="close-button"
+                        data-bs-dismiss="modal">
+                    ×
                 </button>
+
             </div>
 
-            <div class="modal-body">
-                Deseja realmente excluir o funcionário:
-                <strong id="funcionarioNome"></strong>?
+
+            <div class="modal-body-custom">
+
+                <h3>
+                    Confirmação de Exclusão
+                </h3>
+
+                <p>
+                    Deseja realmente excluir o funcionário:
+                </p>
+
+                <strong id="funcionarioNome"></strong>
+
+                <p class="warning-text">
+                    Essa ação não poderá ser desfeita.
+                </p>
+
             </div>
 
-            <div class="modal-footer">
+
+            <div class="modal-actions">
 
                 <button type="button"
-                        class="btn btn-secondary"
+                        class="cancel-button"
                         data-bs-dismiss="modal">
                     Cancelar
                 </button>
 
-                <form id="deleteForm" method="post" action="">
+
+                <form id="deleteForm"
+                      method="post"
+                      action="">
+
                     @Html.AntiForgeryToken()
 
-                    <button type="submit" class="btn btn-danger">
+                    <button type="submit"
+                            class="confirm-delete">
                         Sim, Excluir
                     </button>
+
                 </form>
 
             </div>
 
         </div>
+
     </div>
+
 </div>
 
 
 @section Scripts {
+
     <script>
+
         var deleteModal = document.getElementById('deleteModal');
 
         deleteModal.addEventListener('show.bs.modal', function (event) {
 
             var button = event.relatedTarget;
 
-            var nome = button.getAttribute('data-descricao');
-            var action = button.getAttribute('data-action');
+            var nome =
+                button.getAttribute('data-descricao');
 
-            var modalNome =
-                deleteModal.querySelector('#funcionarioNome');
+            var action =
+                button.getAttribute('data-action');
 
-            modalNome.textContent = nome;
+            document.getElementById('funcionarioNome').textContent =
+                nome;
 
-            var deleteForm =
-                deleteModal.querySelector('#deleteForm');
+            document.getElementById('deleteForm').action =
+                action;
 
-            deleteForm.setAttribute('action', action);
         });
+
     </script>
+
 }

@@ -4,78 +4,154 @@
     ViewData["Title"] = "Novo Incidente";
 }
 
-<h1 class="mb-4">Cadastrar Novo Incidente</h1>
+<div class="form-page">
 
-<div class="row">
-    <div class="col-md-6">
+    <!-- Cabeçalho -->
+    <div class="page-header">
 
-        <form action="/Incidente/Create" method="post">
+        <div>
+            <span class="page-subtitle">GERENCIAMENTO</span>
+
+            <h1>Novo Incidente</h1>
+
+            <p>
+                Registre um novo incidente no sistema.
+            </p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            ← Voltar
+        </a>
+
+    </div>
+
+
+    <!-- Formulário -->
+    <div class="form-card">
+
+        <div class="form-card-header">
+
+            <div class="form-icon incident-form-icon">
+                !
+            </div>
+
+            <div>
+                <h2>Informações do incidente</h2>
+
+                <p>
+                    Preencha os dados abaixo para registrar o incidente.
+                </p>
+            </div>
+
+        </div>
+
+
+        <form asp-action="Create" method="post">
 
             @Html.AntiForgeryToken()
 
-            <div class="mb-3">
-                <label for="DescricaoProblema" class="form-label">
+            <div asp-validation-summary="ModelOnly"
+                 class="validation-message">
+            </div>
+
+
+            <div class="input-group">
+
+                <label asp-for="DescricaoProblema">
                     Descrição do Problema
                 </label>
 
-                <input type="text"
-                       id="DescricaoProblema"
-                       name="DescricaoProblema"
+                <input asp-for="DescricaoProblema"
                        class="form-control"
-                       required />
+                       placeholder="Digite a descrição do problema"
+                       autocomplete="off" />
+
+                <span asp-validation-for="DescricaoProblema"
+                      class="text-danger">
+                </span>
+
             </div>
 
-            <div class="mb-3">
-                <label for="DataIncidente" class="form-label">
+
+            <div class="input-group">
+
+                <label asp-for="DataIncidente">
                     Data do Incidente
                 </label>
 
-                <input type="datetime-local"
-                       id="DataIncidente"
-                       name="DataIncidente"
-                       class="form-control"
-                       required />
+                <input asp-for="DataIncidente"
+                       type="datetime-local"
+                       class="form-control" />
+
+                <span asp-validation-for="DataIncidente"
+                      class="text-danger">
+                </span>
+
             </div>
 
-            <div class="mb-3">
-                <label for="Solucao" class="form-label">
+
+            <div class="input-group">
+
+                <label asp-for="Solucao">
                     Solução
                 </label>
 
-                <input type="text"
-                       id="Solucao"
-                       name="Solucao"
-                       class="form-control" />
+                <input asp-for="Solucao"
+                       class="form-control"
+                       placeholder="Digite a solução aplicada"
+                       autocomplete="off" />
+
+                <span asp-validation-for="Solucao"
+                      class="text-danger">
+                </span>
+
             </div>
 
-            <div class="mb-3">
-                <label for="Resolvido" class="form-label">
+
+            <div class="input-group">
+
+                <label asp-for="Resolvido">
                     Resolvido
                 </label>
 
-                <input type="text"
-                       id="Resolvido"
-                       name="Resolvido"
+                <input asp-for="Resolvido"
                        class="form-control"
                        placeholder="Ex: Sim ou Não"
-                       required />
+                       autocomplete="off" />
+
+                <span asp-validation-for="Resolvido"
+                      class="text-danger">
+                </span>
+
             </div>
 
-            <div class="mb-3 d-flex gap-2">
+
+            <!-- Botões -->
+            <div class="form-actions">
+
+                <a asp-action="Index"
+                   class="cancel-button">
+                    Cancelar
+                </a>
 
                 <button type="submit"
-                        class="btn btn-primary">
-                    Salvar Incidente
+                        class="save-button">
+                    ✓ Salvar Incidente
                 </button>
-
-                <a href="/Incidente/Index"
-                   class="btn btn-secondary">
-                    Voltar para a Lista
-                </a>
 
             </div>
 
         </form>
 
     </div>
+
 </div>
+
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}
