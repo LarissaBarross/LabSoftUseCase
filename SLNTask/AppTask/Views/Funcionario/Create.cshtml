@@ -6,11 +6,10 @@
 
 <div class="form-page">
 
-    <!-- Cabeçalho -->
     <div class="page-header">
 
         <div>
-            <span class="page-subtitle">CADASTROS</span>
+            <span class="page-subtitle">GERENCIAMENTO DE FUNCIONÁRIOS</span>
 
             <h1>Novo Funcionário</h1>
 
@@ -26,12 +25,11 @@
     </div>
 
 
-    <!-- Formulário -->
     <div class="form-card">
 
         <div class="form-card-header">
 
-            <div class="form-icon">
+            <div class="form-icon funcionario-form-icon">
                 👤
             </div>
 
@@ -39,61 +37,88 @@
                 <h2>Informações do funcionário</h2>
 
                 <p>
-                    Preencha os dados abaixo para cadastrar o funcionário.
+                    Preencha os dados abaixo para realizar o cadastro.
                 </p>
             </div>
 
         </div>
 
 
+        <div asp-validation-summary="All" class="validation-message"></div>
+
+
         <form asp-action="Create" method="post">
 
             @Html.AntiForgeryToken()
 
-            <div asp-validation-summary="ModelOnly"
-                 class="validation-message">
-            </div>
 
+            <!-- NOME -->
 
-            <!-- Nome -->
             <div class="input-group">
 
-                <label asp-for="Nome">
-                    Nome completo
+                <label for="Nome">
+                    Nome
                 </label>
 
-                <input asp-for="Nome"
+                <input type="text"
+                       id="Nome"
+                       name="Nome"
                        class="form-control"
                        placeholder="Digite o nome do funcionário"
-                       autocomplete="off" />
-
-                <span asp-validation-for="Nome"
-                      class="text-danger">
-                </span>
+                       required />
 
             </div>
 
 
-            <!-- Cargo -->
+            <!-- CARGO -->
+
             <div class="input-group">
 
-                <label asp-for="Cargo">
+                <label for="Cargo">
                     Cargo
                 </label>
 
-                <input asp-for="Cargo"
+                <input type="text"
+                       id="Cargo"
+                       name="Cargo"
                        class="form-control"
                        placeholder="Digite o cargo do funcionário"
-                       autocomplete="off" />
+                       required />
 
-                <span asp-validation-for="Cargo"
+            </div>
+
+
+            <!-- GERENTE -->
+
+            <div class="input-group">
+
+                <label for="CodigoGerente">
+                    Gerente
+                </label>
+
+                <select asp-for="CodigoGerente"
+                        class="form-control"
+                        asp-items="ViewBag.ListaGerente">
+
+                    <option value="">
+                        -- Selecione um Gerente --
+                    </option>
+
+                </select>
+
+                <small class="field-help">
+                    Selecione um funcionário já cadastrado para ser o gerente.
+                </small>
+
+                <span asp-validation-for="CodigoGerente"
                       class="text-danger">
                 </span>
 
             </div>
 
 
-            <!-- Botões -->
+            <!-- BOTÕES -->
+
             <div class="form-actions">
 
                 <a asp-action="Index"

@@ -1,111 +1,69 @@
 ﻿@model AppTask.Models.Funcionario
 
 @{
-    ViewData["Title"] = "Detalhes do Funcionário";
+    ViewData["Title"] = "Detalhes do funcionário";
 }
 
-<div class="form-page">
+<div class="detail-page-header">
+    <div>
+        <div class="eyebrow">Cadastros</div>
+        <h1>Detalhes do funcionário</h1>
+        <p>Visualize as informações do funcionário selecionado.</p>
+    </div>
 
-    <!-- Cabeçalho -->
-    <div class="page-header">
+    <div class="detail-actions">
+        <a asp-action="Edit"
+           asp-route-id="@Model.Codigo"
+           class="primary-btn">
+            Editar funcionário
+        </a>
 
-        <div>
-            <span class="page-subtitle">CADASTROS</span>
-
-            <h1>Detalhes do Funcionário</h1>
-
-            <p>
-                Consulte as informações do funcionário cadastrado.
-            </p>
-        </div>
-
-        <a asp-action="Index" class="back-button">
+        <a asp-action="Index"
+           class="secondary-btn">
             ← Voltar
         </a>
+    </div>
+</div>
+
+<div class="detail-card">
+
+    <div class="profile-heading">
+
+        <span class="profile-avatar">
+            @Model.Nome.Substring(0, 1).ToUpper()
+        </span>
+
+        <div>
+            <span class="detail-label">Funcionário</span>
+            <h2>@Model.Nome</h2>
+        </div>
 
     </div>
 
+    <div class="detail-grid">
 
-    <!-- Card de detalhes -->
-    <div class="form-card details-card">
-
-        <div class="form-card-header">
-
-            <div class="form-icon">
-                👤
-            </div>
-
-            <div>
-                <h2>Informações do funcionário</h2>
-
-                <p>
-                    Dados cadastrados no sistema.
-                </p>
-            </div>
-
+        <div>
+            <span class="detail-label">Nome completo</span>
+            <strong>@Model.Nome</strong>
         </div>
 
-
-        <!-- Informações -->
-
-        <div class="details-content">
-
-            <div class="details-item">
-
-                <span class="details-label">
-                    Nome
-                </span>
-
-                <strong class="details-value">
-                    @Html.DisplayFor(model => model.Nome)
-                </strong>
-
-            </div>
-
-
-            <div class="details-item">
-
-                <span class="details-label">
-                    Cargo
-                </span>
-
-                <strong class="details-value">
-                    @Html.DisplayFor(model => model.Cargo)
-                </strong>
-
-            </div>
-
-
-            <div class="details-item">
-
-                <span class="details-label">
-                    Código do Funcionário
-                </span>
-
-                <strong class="details-value">
-                    #@Model.Codigo
-                </strong>
-
-            </div>
-
+        <div>
+            <span class="detail-label">Cargo</span>
+            <strong>@Model.Cargo</strong>
         </div>
 
+        <div>
+            <span class="detail-label">Gerente</span>
+            <strong>
+                @(Model.Gerente?.Nome ?? "Sem gerente")
+            </strong>
+        </div>
 
-        <!-- Botões -->
-
-        <div class="form-actions">
-
-            <a asp-action="Index"
-               class="cancel-button">
-                Voltar
-            </a>
-
-            <a asp-action="Edit"
-               asp-route-id="@Model?.Codigo"
-               class="save-button details-edit-button">
-                ✎ Editar
-            </a>
-
+        <div>
+            <span class="detail-label">Código</span>
+            <strong>
+                #@Model.Codigo
+            </strong>
         </div>
 
     </div>

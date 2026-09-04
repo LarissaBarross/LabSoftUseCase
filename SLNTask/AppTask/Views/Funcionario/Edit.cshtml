@@ -6,16 +6,15 @@
 
 <div class="form-page">
 
-    <!-- Cabeçalho -->
     <div class="page-header">
 
         <div>
-            <span class="page-subtitle">CADASTROS</span>
+            <span class="page-subtitle">GERENCIAMENTO DE FUNCIONÁRIOS</span>
 
             <h1>Editar Funcionário</h1>
 
             <p>
-                Altere as informações do funcionário cadastrado.
+                Atualize as informações do funcionário.
             </p>
         </div>
 
@@ -26,12 +25,11 @@
     </div>
 
 
-    <!-- Formulário -->
     <div class="form-card">
 
         <div class="form-card-header">
 
-            <div class="form-icon">
+            <div class="form-icon funcionario-form-icon">
                 👤
             </div>
 
@@ -39,35 +37,34 @@
                 <h2>Informações do funcionário</h2>
 
                 <p>
-                    Atualize os dados abaixo.
+                    Altere os dados abaixo e salve as modificações.
                 </p>
             </div>
 
         </div>
 
 
-        <form asp-action="Edit" method="post">
+        <div asp-validation-summary="ModelOnly"
+             class="validation-message">
+        </div>
 
-            @Html.AntiForgeryToken()
+
+        <form asp-action="Edit" method="post">
 
             <input type="hidden" asp-for="Codigo" />
 
-            <div asp-validation-summary="ModelOnly"
-                 class="validation-message">
-            </div>
 
+            <!-- NOME -->
 
-            <!-- Nome -->
             <div class="input-group">
 
                 <label asp-for="Nome">
-                    Nome completo
+                    Nome
                 </label>
 
                 <input asp-for="Nome"
                        class="form-control"
-                       placeholder="Digite o nome do funcionário"
-                       autocomplete="off" />
+                       placeholder="Digite o nome do funcionário" />
 
                 <span asp-validation-for="Nome"
                       class="text-danger">
@@ -76,7 +73,8 @@
             </div>
 
 
-            <!-- Cargo -->
+            <!-- CARGO -->
+
             <div class="input-group">
 
                 <label asp-for="Cargo">
@@ -85,8 +83,7 @@
 
                 <input asp-for="Cargo"
                        class="form-control"
-                       placeholder="Digite o cargo do funcionário"
-                       autocomplete="off" />
+                       placeholder="Digite o cargo do funcionário" />
 
                 <span asp-validation-for="Cargo"
                       class="text-danger">
@@ -95,7 +92,37 @@
             </div>
 
 
-            <!-- Botões -->
+            <!-- GERENTE -->
+
+            <div class="input-group">
+
+                <label asp-for="CodigoGerente">
+                    Gerente
+                </label>
+
+                <select asp-for="CodigoGerente"
+                        class="form-control"
+                        asp-items="ViewBag.ListaGerente">
+
+                    <option value="">
+                        -- Selecione um Gerente --
+                    </option>
+
+                </select>
+
+                <small class="field-help">
+                    Selecione um funcionário já cadastrado para ser o gerente.
+                </small>
+
+                <span asp-validation-for="CodigoGerente"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- BOTÕES -->
+
             <div class="form-actions">
 
                 <a asp-action="Index"
