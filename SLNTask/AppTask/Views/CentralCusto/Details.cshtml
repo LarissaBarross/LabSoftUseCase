@@ -1,30 +1,121 @@
 ﻿@model AppTask.Models.CentralCusto
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes da Central de Custo";
 }
 
-<h1>Details</h1>
+<div class="form-page">
 
-<div>
-    <h4>CentralCusto</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NomeCusto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NomeCusto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ValorAnualMeta)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ValorAnualMeta)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Codigo">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="page-header">
+
+        <div>
+            <span class="page-subtitle">
+                CONTROLE FINANCEIRO
+            </span>
+
+            <h1>Detalhes da Central de Custo</h1>
+
+            <p>
+                Consulte as informações deste centro de custo.
+            </p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            ← Voltar
+        </a>
+
+    </div>
+
+
+    <div class="form-card details-card">
+
+        <div class="form-card-header">
+
+            <div class="form-icon central-form-icon">
+                R$
+            </div>
+
+            <div>
+                <h2>Informações do centro de custo</h2>
+
+                <p>
+                    Dados cadastrados no sistema.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="details-content">
+
+            <!-- NOME -->
+
+            <div class="details-item">
+
+                <span class="details-label">
+                    Nome do Custo
+                </span>
+
+                <strong class="details-value">
+                    @Html.DisplayFor(model => model.NomeCusto)
+                </strong>
+
+            </div>
+
+
+            <!-- VALOR -->
+
+            <div class="details-item">
+
+                <span class="details-label">
+                    Valor Anual da Meta
+                </span>
+
+                <strong class="details-value value-highlight">
+                    R$ @Model.ValorAnualMeta.ToString("N2")
+                </strong>
+
+            </div>
+
+
+            <!-- CÓDIGO -->
+
+            <div class="details-item">
+
+                <span class="details-label">
+                    Código
+                </span>
+
+                <strong class="details-value">
+                    #@Model.Codigo
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- BOTÕES -->
+
+        <div class="form-actions">
+
+            <a asp-action="Index"
+               class="cancel-button">
+
+                Voltar
+
+            </a>
+
+            <a asp-action="Edit"
+               asp-route-id="@Model?.Codigo"
+               class="save-button details-edit-button">
+
+                ✎ Editar
+
+            </a>
+
+        </div>
+
+    </div>
+
 </div>

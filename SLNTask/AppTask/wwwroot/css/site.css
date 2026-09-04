@@ -1,22 +1,1922 @@
+﻿/* =========================================================
+   APP TASK
+   Design delicado • clean • moderno
+========================================================= */
+
+
+/* =========================================================
+   CONFIGURAÇÕES GERAIS
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
 html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #fbf9fc;
+    color: #554d5d;
+    font-family: "Raleway", sans-serif;
+}
+
+header {
+    flex-shrink: 0;
+}
+
+main {
+    flex: 1 0 auto;
+    width: 100%;
+}
+
+footer {
+    flex-shrink: 0;
+    width: 100%;
+    margin-top: auto;
+    padding: 17px 0;
+    background: #ffffff;
+    border-top: 1px solid #eee8f0;
+    text-align: center;
+    color: #aaa2ad;
+    font-size: 12px;
+}
+
+    footer a {
+        color: #a778a8;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+        footer a:hover {
+            color: #8d5f8f;
+        }
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+.navbar {
+    background: #ffffff !important;
+    border-bottom: 1px solid #eee7ef !important;
+    box-shadow: 0 2px 10px rgba(80, 60, 85, 0.025);
+}
+
+.navbar-brand {
+    color: #9d70a1 !important;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.nav-link {
+    color: #77707d !important;
+    font-size: 13px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+    .nav-link:hover {
+        color: #a675a8 !important;
+    }
+
+
+/* =========================================================
+   PÁGINA DE TAREFAS
+========================================================= */
+
+.task-page {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+}
+
+
+/* =========================================================
+   CABEÇALHO DA PÁGINA
+========================================================= */
+
+.page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.page-subtitle {
+    display: block;
+    color: #b184b2;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+}
+
+.page-header h1 {
+    margin: 0;
+    color: #514956;
+    font-size: 29px;
+    font-weight: 600;
+    letter-spacing: -0.4px;
+}
+
+.page-header p {
+    margin: 7px 0 0;
+    color: #9d96a2;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   BOTÃO NOVA TAREFA
+========================================================= */
+
+.new-task {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 16px;
+    background: #b489b7;
+    color: #ffffff !important;
+    border: none;
+    border-radius: 9px;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+    .new-task:hover {
+        background: #a476a8;
+        color: #ffffff !important;
+        transform: translateY(-1px);
+    }
+
+    .new-task span {
+        font-size: 16px;
+    }
+
+
+/* =========================================================
+   RESUMO
+========================================================= */
+
+.summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 25px;
+}
+
+.summary-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #eee8f0;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(80, 60, 85, 0.035);
+    transition: 0.2s ease;
+}
+
+    .summary-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(80, 60, 85, 0.06);
+    }
+
+.summary-icon {
+    width: 37px;
+    height: 37px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+    .summary-icon.purple {
+        background: #f3edf6;
+        color: #a274a5;
+    }
+
+    .summary-icon.orange {
+        background: #fff2e9;
+        color: #c49172;
+    }
+
+    .summary-icon.green {
+        background: #edf5ef;
+        color: #789b83;
+    }
+
+    .summary-icon.red {
+        background: #faedef;
+        color: #b87987;
+    }
+
+.summary-card small {
+    display: block;
+    color: #aaa2ad;
+    font-size: 10px;
+}
+
+.summary-card strong {
+    display: block;
+    margin-top: 2px;
+    color: #5b5360;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   PESQUISA
+========================================================= */
+
+.search-area {
+    margin-bottom: 27px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    height: 43px;
+    padding: 0 13px;
+    background: #ffffff;
+    border: 1px solid #eee7ef;
+    border-radius: 9px;
+    box-shadow: 0 2px 8px rgba(80, 60, 85, 0.025);
+    transition: 0.2s ease;
+}
+
+    .search-box:focus-within {
+        border-color: #d5b9d5;
+        box-shadow: 0 0 0 3px rgba(180, 137, 183, 0.08);
+    }
+
+    .search-box span {
+        color: #b395b4;
+        font-size: 19px;
+    }
+
+    .search-box input {
+        flex: 1;
+        border: none;
+        outline: none;
+        padding: 0 10px;
+        background: transparent;
+        color: #5d5662;
+        font-family: inherit;
+        font-size: 12px;
+    }
+
+        .search-box input::placeholder {
+            color: #b3adb5;
+        }
+
+
+/* =========================================================
+   CABEÇALHO DA LISTA
+========================================================= */
+
+.list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 13px;
+}
+
+    .list-header h2 {
+        margin: 0;
+        color: #5a5260;
+        font-size: 17px;
+        font-weight: 600;
+    }
+
+    .list-header span {
+        color: #a29ba5;
+        font-size: 10px;
+    }
+
+.total-badge {
+    padding: 5px 10px;
+    background: #f4edf6;
+    color: #9b729e !important;
+    border-radius: 14px;
+    font-size: 10px !important;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   TAREFAS
+========================================================= */
+
+.tasks-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.task-card {
+    position: relative;
+    padding: 19px;
+    background: #ffffff;
+    border: 1px solid #eee8f0;
+    border-radius: 13px;
+    box-shadow: 0 3px 13px rgba(80, 60, 85, 0.035);
+    transition: 0.2s ease;
+}
+
+    .task-card:hover {
+        transform: translateY(-2px);
+        border-color: #e5d8e6;
+        box-shadow: 0 8px 20px rgba(80, 60, 85, 0.065);
+    }
+
+
+    /* detalhe superior */
+
+    .task-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 18px;
+        right: 18px;
+        height: 2px;
+        background: #e5cde4;
+        border-radius: 0 0 5px 5px;
+    }
+
+
+/* =========================================================
+   TOPO DO CARD
+========================================================= */
+
+.task-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task-code {
+    color: #aaa3ad;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.task-status {
+    padding: 5px 9px;
+    border-radius: 15px;
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.status-progress {
+    background: #fff2e8;
+    color: #bf886a;
+}
+
+.status-completed {
+    background: #edf5ef;
+    color: #72967d;
+}
+
+.status-cancelled {
+    background: #faedef;
+    color: #b77584;
+}
+
+.status-pending {
+    background: #f1edf7;
+    color: #87729a;
+}
+
+.status-default {
+    background: #f4edf6;
+    color: #98729c;
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+========================================================= */
+
+.task-card h3 {
+    margin: 13px 0;
+    color: #59515e;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   DETALHES
+========================================================= */
+
+.task-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 13px 0;
+    border-top: 1px solid #f2edf2;
+    border-bottom: 1px solid #f2edf2;
+}
+
+.detail {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.detail-icon {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f7f1f7;
+    color: #a77fa8;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.detail small {
+    display: block;
+    color: #aaa3ad;
+    font-size: 9px;
+}
+
+.detail strong {
+    display: block;
+    margin-top: 2px;
+    color: #625a66;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   FUNCIONÁRIO
+========================================================= */
+
+.employee {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 13px;
+}
+
+.employee-avatar {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: #c59bc5;
+    color: #ffffff;
+    border-radius: 50%;
+    border: 2px solid #f7eff7;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.employee small {
+    display: block;
+    color: #aaa3ad;
+    font-size: 9px;
+}
+
+.employee strong {
+    display: block;
+    margin-top: 1px;
+    color: #625a66;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   BOTÕES
+========================================================= */
+
+.task-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 14px;
+}
+
+.action {
+    display: block;
+    padding: 7px 4px;
+    border: none;
+    border-radius: 7px;
+    text-align: center;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+    .action:hover {
+        transform: translateY(-1px);
+    }
+
+.view {
+    background: #f4eef6;
+    color: #8c7096;
+}
+
+    .view:hover {
+        background: #ebe1ee;
+        color: #795d84;
+    }
+
+.edit {
+    background: #f4f0f8;
+    color: #87779a;
+}
+
+    .edit:hover {
+        background: #eae3f0;
+        color: #736282;
+    }
+
+.delete {
+    background: #faeff1;
+    color: #b47885;
+}
+
+    .delete:hover {
+        background: #f4e1e5;
+        color: #a36170;
+    }
+
+
+/* =========================================================
+   TELA VAZIA
+========================================================= */
+
+.empty {
+    padding: 48px 20px;
+    background: #ffffff;
+    border: 1px dashed #dfd2e1;
+    border-radius: 14px;
+    text-align: center;
+}
+
+.empty-icon {
+    width: 46px;
+    height: 46px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5edf6;
+    color: #a57da7;
+    border-radius: 13px;
+    font-size: 19px;
+}
+
+.empty h3 {
+    margin-top: 14px;
+    color: #5b5361;
+    font-size: 16px;
+}
+
+.empty p {
+    margin-bottom: 18px;
+    color: #a29aa5;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   FORMULÁRIOS
+========================================================= */
+
+.form-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+}
+
+    .form-page .page-header {
+        margin-bottom: 25px;
+    }
+
+.form-card {
+    padding: 27px;
+    background: #ffffff;
+    border: 1px solid #eee8f0;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(80, 60, 85, 0.04);
+}
+
+.form-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 19px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid #f0ebf1;
+}
+
+.form-icon {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5edf6;
+    color: #a478a5;
+    border-radius: 11px;
+    font-size: 18px;
+}
+
+.form-card-header h2 {
+    margin: 0;
+    color: #59515f;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.form-card-header p {
+    margin: 3px 0 0;
+    color: #a29aa5;
+    font-size: 11px;
+}
+
+
+/* campos */
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+    .input-group label {
+        display: block;
+        margin-bottom: 6px;
+        color: #665e6b;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .input-group input,
+    .input-group select {
+        width: 100%;
+        padding: 10px 12px;
+        background: #fdfbfd;
+        border: 1px solid #e5dfe7;
+        border-radius: 8px;
+        color: #5b5360;
+        font-family: inherit;
+        font-size: 12px;
+        outline: none;
+        transition: 0.2s ease;
+    }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            background: #ffffff;
+            border-color: #cbaaca;
+            box-shadow: 0 0 0 3px rgba(181, 137, 184, 0.08);
+        }
+
+        .input-group input::placeholder {
+            color: #b5aeb7;
+        }
+
+
+/* grid */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 18px;
+}
+
+
+/* ações */
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding-top: 20px;
+    margin-top: 22px;
+    border-top: 1px solid #f0ebf1;
+}
+
+.cancel-button,
+.save-button {
+    padding: 9px 15px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.cancel-button {
+    background: #f3f0f3;
+    color: #6d6670;
+    border: none;
+    text-decoration: none;
+}
+
+    .cancel-button:hover {
+        background: #eae5ea;
+        color: #554e58;
+    }
+
+.save-button {
+    background: #b489b7;
+    color: #ffffff;
+    border: none;
+}
+
+    .save-button:hover {
+        background: #a476a8;
+    }
+
+
+/* =========================================================
+   CENTRAL DE CUSTO
+========================================================= */
+
+.central-card {
+    position: relative;
+    overflow: hidden;
+}
+
+    .central-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: #d8b7d6;
+    }
+
+.central-icon {
+    width: 42px;
+    height: 42px;
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5edf6;
+    color: #a478a5;
+    border-radius: 11px;
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tasks-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .task-page {
+        padding: 28px 17px 45px;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+        .page-header h1 {
+            font-size: 26px;
+        }
+
+    .summary {
+        grid-template-columns: 1fr;
+    }
+
+    .task-details {
+        grid-template-columns: 1fr;
+    }
+
+    .task-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-card {
+        padding: 20px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .cancel-button,
+    .save-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+/* =========================================================
+   CREATE TAREFA
+========================================================= */
+
+.form-page {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+}
+
+/* Título centralizado */
+.form-page .page-header {
+    display: block;
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.form-page .page-header h1 {
+    text-align: center;
+}
+
+.form-page .page-header p {
+    text-align: center;
+}
+
+/* Formulário */
+.form-page form {
+    background: #ffffff;
+    padding: 30px 35px;
+
+    border: 1px solid #eee8f0;
+    border-radius: 14px;
+
+    box-shadow: 0 4px 16px rgba(80, 60, 85, 0.04);
+}
+
+/* Labels centralizados */
+.form-page form label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #665e6b;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    text-align: center;
+}
+
+/* Campos */
+.form-page form .form-control,
+.form-page form .form-select {
+    width: 100%;
+
+    min-height: 42px;
+
+    background: #fdfbfd;
+
+    border: 1px solid #e5dfe7;
+    border-radius: 8px;
+
+    color: #5b5360;
+
+    font-family: "Raleway", sans-serif;
+    font-size: 12px;
+
+    text-align: center;
+
+    transition: 0.2s ease;
+}
+
+.form-page form .form-control:focus,
+.form-page form .form-select:focus {
+    background: #ffffff;
+
+    border-color: #cbaaca;
+
+    box-shadow: 0 0 0 3px rgba(181, 137, 184, 0.08);
+
+    outline: none;
+}
+
+/* Placeholder */
+.form-page form .form-control::placeholder {
+    color: #b5aeb7;
+    text-align: center;
+}
+
+
+/* =========================================================
+   BOTÕES DO FORMULÁRIO
+========================================================= */
+
+.form-page form .d-flex {
+    justify-content: center !important;
+
+    gap: 10px !important;
+
+    margin-top: 25px;
+}
+
+/* Salvar */
+.form-page form .btn-primary {
+    padding: 10px 19px;
+
+    background: #b489b7 !important;
+
+    border: none !important;
+    border-radius: 8px;
+
+    color: #ffffff !important;
+
+    font-family: "Raleway", sans-serif;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    box-shadow: none;
+
+    transition: 0.2s ease;
+}
+
+.form-page form .btn-primary:hover {
+    background: #a476a8 !important;
+
+    transform: translateY(-1px);
+}
+
+
+/* Voltar */
+.form-page form .btn-secondary {
+    padding: 10px 19px;
+
+    background: #f3eef4 !important;
+
+    border: 1px solid #e5dce7 !important;
+    border-radius: 8px;
+
+    color: #806982 !important;
+
+    font-family: "Raleway", sans-serif;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    box-shadow: none;
+
+    transition: 0.2s ease;
+}
+
+.form-page form .btn-secondary:hover {
+    background: #e9e0eb !important;
+
+    border-color: #d8c7da !important;
+
+    color: #705873 !important;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .form-page {
+        padding: 28px 15px 45px;
+    }
+
+    .form-page form {
+        padding: 23px 18px;
+    }
+
+    .form-page form .d-flex {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .form-page form .btn-primary,
+    .form-page form .btn-secondary {
+        width: 100%;
+    }
+}
+/* =========================================================
+   FORMULÁRIO NOVA TAREFA
+========================================================= */
+
+.form-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+}
+
+
+    /* CABEÇALHO */
+
+    .form-page .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 28px;
+    }
+
+        .form-page .page-header h1 {
+            margin: 0;
+            color: #514956;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .form-page .page-header p {
+            margin-top: 6px;
+            color: #9d96a2;
+            font-size: 12px;
+        }
+
+
+/* BOTÃO VOLTAR */
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 15px;
+    background: #f5eff6;
+    border: 1px solid #e5dce7;
+    border-radius: 8px;
+    color: #866b8b !important;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+    .back-button:hover {
+        background: #ece3ee;
+        border-color: #d9c8dc;
+        color: #725878 !important;
+        transform: translateY(-1px);
+    }
+
+
+/* CARD */
+
+.form-card {
+    background: #ffffff;
+    padding: 28px 32px;
+    border: 1px solid #eee8f0;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(80, 60, 85, 0.04);
+}
+
+
+/* CABEÇALHO DO FORMULÁRIO */
+
+.form-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 20px;
+    margin-bottom: 23px;
+    border-bottom: 1px solid #f0ebf1;
+}
+
+.form-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5edf6;
+    color: #a478a5;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.form-card-header h2 {
+    margin: 0;
+    color: #5a5260;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.form-card-header p {
+    margin: 4px 0 0;
+    color: #aaa2ad;
+    font-size: 11px;
+}
+
+
+/* CAMPOS */
+
+.input-group {
+    margin-bottom: 17px;
+}
+
+    .input-group label {
+        display: block;
+        margin-bottom: 6px;
+        color: #655d69;
+        font-size: 11px;
+        font-weight: 600;
+        text-align: left;
+    }
+
+    .input-group .form-control {
+        width: 100%;
+        min-height: 41px;
+        padding: 9px 11px;
+        background: #fdfbfd;
+        border: 1px solid #e5dfe7;
+        border-radius: 8px;
+        color: #5b5360;
+        font-family: "Raleway", sans-serif;
+        font-size: 11px;
+        outline: none;
+        transition: 0.2s ease;
+    }
+
+        .input-group .form-control:focus {
+            background: #ffffff;
+            border-color: #cbaaca;
+            box-shadow: 0 0 0 3px rgba(181, 137, 184, 0.08);
+        }
+
+        .input-group .form-control::placeholder {
+            color: #b4adb7;
+        }
+
+
+/* GRID */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 18px;
+}
+
+
+/* SELECT */
+
+select.form-control {
+    cursor: pointer;
+}
+
+
+/* ERROS */
+
+.validation-message {
+    margin-bottom: 18px;
+    padding: 10px 12px;
+    background: #fcf0f2;
+    border: 1px solid #f1dce0;
+    border-radius: 8px;
+    color: #a76f7b;
+    font-size: 11px;
+}
+
+
+/* BOTÕES */
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 9px;
+    padding-top: 20px;
+    margin-top: 8px;
+    border-top: 1px solid #f0ebf1;
+}
+
+
+/* CANCELAR */
+
+.cancel-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 17px;
+    background: #f4f1f4;
+    border: 1px solid #e7e1e7;
+    border-radius: 8px;
+    color: #716a74 !important;
+    text-decoration: none;
+    font-family: "Raleway", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+    .cancel-button:hover {
+        background: #ebe6eb;
+        color: #5d5660 !important;
+        transform: translateY(-1px);
+    }
+
+
+/* SALVAR */
+
+.save-button {
+    padding: 9px 17px;
+    background: #b489b7;
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    font-family: "Raleway", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+    .save-button:hover {
+        background: #a476a8;
+        transform: translateY(-1px);
+    }
+
+
+/* RESPONSIVO */
+
+@media (max-width: 650px) {
+
+    .form-page {
+        padding: 28px 15px 45px;
+    }
+
+        .form-page .page-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+            .form-page .page-header h1 {
+                font-size: 25px;
+            }
+
+    .back-button {
+        width: 100%;
+    }
+
+    .form-card {
+        padding: 22px 18px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .cancel-button,
+    .save-button {
+        width: 100%;
+    }
+}
+/* =========================================================
+   CENTRAL DE CUSTO - FORMULÁRIO
+========================================================= */
+
+.central-form-icon {
+    background: #f5edf6;
+    color: #a478a5;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* AJUDA DOS CAMPOS */
+
+.field-help {
+    display: block;
+    margin-top: 6px;
+    color: #aaa2ad;
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+
+/* CAMPO DE DINHEIRO */
+
+.input-money {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    background: #fdfbfd;
+    border: 1px solid #e5dfe7;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: 0.2s ease;
+}
+
+    .input-money:focus-within {
+        background: #ffffff;
+        border-color: #cbaaca;
+        box-shadow: 0 0 0 3px rgba(181, 137, 184, 0.08);
+    }
+
+
+    /* R$ */
+
+    .input-money span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 48px;
+        background: #f5edf6;
+        border-right: 1px solid #e7dce8;
+        color: #9a719d;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+
+    /* INPUT DO VALOR */
+
+    .input-money input {
+        width: 100%;
+        padding: 10px 12px;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #5b5360;
+        font-family: "Raleway", sans-serif;
+        font-size: 12px;
+    }
+
+        .input-money input::placeholder {
+            color: #b4adb7;
+        }
+
+
+        /* REMOVE SETAS DO INPUT NUMBER */
+
+        .input-money input::-webkit-outer-spin-button,
+        .input-money input::-webkit-inner-spin-button {
+            margin: 0;
+            -webkit-appearance: none;
+        }
+
+        .input-money input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+
+/* =========================================================
+   AJUSTE DO CARD
+========================================================= */
+
+.form-page .form-card {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .form-page .form-card {
+        width: 100%;
+    }
+
+    .input-money span {
+        min-width: 43px;
+    }
+}
+/* =========================================================
+   MODAL DE EXCLUSÃO - CENTRAL DE CUSTO
+========================================================= */
+
+.delete-modal {
+    border: none !important;
+    border-radius: 16px !important;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 12px 35px rgba(80, 60, 85, 0.15);
+}
+
+
+/* CABEÇALHO */
+
+.modal-header-custom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 25px 25px 5px;
+}
+
+
+/* ÍCONE DE AVISO */
+
+.warning-icon {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #faf0f3;
+    border: 1px solid #f1dce2;
+    color: #b87886;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+
+/* BOTÃO X */
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 17px;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: #aaa2ad;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+    .close-button:hover {
+        background: #f7f3f7;
+        color: #766d79;
+    }
+
+
+/* CORPO */
+
+.modal-body-custom {
+    padding: 12px 30px 20px;
+    text-align: center;
+}
+
+
+    /* TÍTULO */
+
+    .modal-body-custom h3 {
+        margin: 5px 0 9px;
+        color: #574f5d;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+
+    /* TEXTO */
+
+    .modal-body-custom p {
+        margin: 5px 0;
+        color: #9b939e;
+        font-size: 11px;
+    }
+
+
+/* NOME DO CENTRO */
+
+#centralCustoNome {
+    display: block;
+    margin: 10px auto 13px;
+    padding: 9px 14px;
+    width: fit-content;
+    max-width: 90%;
+    background: #faf7fb;
+    border: 1px solid #eee7f0;
+    border-radius: 8px;
+    color: #765b78;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* AVISO */
+
+.modal-body-custom .warning-text {
+    margin-top: 12px;
+    color: #b87886;
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   BOTÕES
+========================================================= */
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    padding: 17px 25px 23px;
+}
+
+
+    /* CANCELAR */
+
+    .modal-actions .cancel-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 95px;
+        padding: 9px 16px;
+        background: #f5f2f5;
+        border: 1px solid #e7e1e7;
+        border-radius: 8px;
+        color: #716a74 !important;
+        font-family: "Raleway", sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.2s ease;
+    }
+
+        .modal-actions .cancel-button:hover {
+            background: #ece8ed;
+            transform: translateY(-1px);
+        }
+
+
+/* EXCLUIR */
+
+.confirm-delete {
+    min-width: 105px;
+    padding: 9px 16px;
+    background: #b87886;
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    font-family: "Raleway", sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+    .confirm-delete:hover {
+        background: #a96877;
+        transform: translateY(-1px);
+    }
+
+
+/* RESPONSIVO */
+
+@media (max-width: 500px) {
+
+    .modal-body-custom {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .modal-actions {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+        .modal-actions .cancel-button,
+        .confirm-delete {
+            min-width: 90px;
+        }
+}
+/* =========================================================
+   EDITAR TAREFA
+========================================================= */
+
+.task-form-icon {
+    background: #f5edf6;
+    color: #a478a5;
+}
+
+
+/* SELECT */
+
+.form-page select.form-control {
+    appearance: auto;
+    cursor: pointer;
+}
+
+
+/* CAMPOS DE DATA */
+
+.form-page input[type="datetime-local"] {
+    color: #625a67;
+}
+
+
+/* MENSAGENS DE VALIDAÇÃO */
+
+.form-page .text-danger {
+    display: block;
+    margin-top: 5px;
+    color: #b87886 !important;
+    font-size: 10px;
+}
+
+
+/* BOTÃO SALVAR */
+
+.form-page .save-button {
+    border: none;
+    cursor: pointer;
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 700px) {
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-page .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .form-page .back-button {
+        align-self: flex-start;
+    }
+}
+/* =========================================================
+   EDITAR CENTRAL DE CUSTO
+========================================================= */
+
+.central-form-icon {
+    background: #f5edf6;
+    color: #a478a5;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* CAMPOS */
+
+.form-page .text-danger {
+    display: block;
+    margin-top: 5px;
+    color: #b87886 !important;
+    font-size: 10px;
+}
+
+
+/* BOTÃO SALVAR */
+
+.form-page .save-button {
+    border: none;
+    cursor: pointer;
+}
+
+
+/* VALOR */
+
+.input-money input {
+    font-family: "Raleway", sans-serif;
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 600px) {
+
+    .form-page .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .form-page .back-button {
+        align-self: flex-start;
+    }
+}
+/* =========================================================
+   DETAILS - CENTRAL DE CUSTO
+========================================================= */
+
+.details-card {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+
+/* ÁREA DAS INFORMAÇÕES */
+
+.details-content {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+/* CADA INFORMAÇÃO */
+
+.details-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: #fbf9fc;
+    border: 1px solid #eee8f0;
+    border-radius: 9px;
+}
+
+
+/* LABEL */
+
+.details-label {
+    color: #a29aa5;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+/* VALOR */
+
+.details-value {
+    color: #625a67;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: right;
+}
+
+
+/* VALOR DA META */
+
+.value-highlight {
+    color: #9b719d;
+}
+
+
+/* BOTÃO EDITAR */
+
+.details-edit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: none;
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 600px) {
+
+    .details-item {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .details-value {
+        text-align: left;
+    }
+
+    .details-card .form-actions {
+        flex-direction: column;
+    }
+
+        .details-card .form-actions a {
+            width: 100%;
+        }
+}
+/* =========================================
+   DETALHES DA TAREFA
+========================================= */
+
+.task-form-icon {
+    background: #f5edf6;
+    color: #a478a5;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.details-card {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.details-content {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.details-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: #fbf9fc;
+    border: 1px solid #eee8f0;
+    border-radius: 9px;
+}
+
+.details-label {
+    color: #a29aa5;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.details-value {
+    color: #625a67;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: right;
+}
+
+.details-edit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: none;
+}
+
+    .details-edit-button:hover {
+        text-decoration: none;
+    }
+
+
+/* RESPONSIVO */
+
+@media (max-width: 600px) {
+
+    .details-item {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .details-value {
+        text-align: left;
+    }
+
+    .details-card .form-actions {
+        flex-direction: column;
+    }
+
+        .details-card .form-actions a {
+            width: 100%;
+        }
 }

@@ -4,17 +4,75 @@
     ViewData["Title"] = "Nova Central de Custo";
 }
 
-<h1 class="mb-4">Cadastrar Nova Central de Custo</h1>
+<div class="form-page">
 
-<div class="row">
-    <div class="col-md-6">
+    <!-- CABEÇALHO -->
 
-        <form action="/CentralCusto/Create" method="post">
+    <div class="page-header">
+
+        <div>
+            <span class="page-subtitle">
+                CONTROLE FINANCEIRO
+            </span>
+
+            <h1>
+                Nova Central de Custo
+            </h1>
+
+            <p>
+                Cadastre um novo centro de custo no sistema.
+            </p>
+        </div>
+
+        <a asp-action="Index"
+           class="back-button">
+            ← Voltar
+        </a>
+
+    </div>
+
+
+    <!-- FORMULÁRIO -->
+
+    <div class="form-card">
+
+        <div class="form-card-header">
+
+            <div class="form-icon central-form-icon">
+                R$
+            </div>
+
+            <div>
+                <h2>
+                    Informações do centro de custo
+                </h2>
+
+                <p>
+                    Preencha os dados abaixo para realizar o cadastro.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- ERROS -->
+
+        <div asp-validation-summary="All"
+             class="validation-message">
+        </div>
+
+
+        <form asp-action="Create"
+              method="post">
 
             @Html.AntiForgeryToken()
 
-            <div class="mb-3">
-                <label for="NomeCusto" class="form-label">
+
+            <!-- NOME DO CUSTO -->
+
+            <div class="input-group">
+
+                <label for="NomeCusto">
                     Nome do Custo
                 </label>
 
@@ -24,37 +82,61 @@
                        class="form-control"
                        placeholder="Digite o nome do custo"
                        required />
+
+                <small class="field-help">
+                    Informe um nome para identificar este centro de custo.
+                </small>
+
             </div>
 
-            <div class="mb-3">
-                <label for="ValorAnualMeta" class="form-label">
+
+            <!-- VALOR -->
+
+            <div class="input-group">
+
+                <label for="ValorAnualMeta">
                     Valor Anual da Meta
                 </label>
 
-                <input type="number"
-                       id="ValorAnualMeta"
-                       name="ValorAnualMeta"
-                       class="form-control"
-                       placeholder="Digite o valor anual"
-                       step="0.01"
-                       required />
+                <div class="input-money">
+
+                    <span>R$</span>
+
+                    <input type="number"
+                           id="ValorAnualMeta"
+                           name="ValorAnualMeta"
+                           placeholder="0,00"
+                           step="0.01"
+                           min="0"
+                           required />
+
+                </div>
+
+                <small class="field-help">
+                    Informe o valor anual da meta deste centro.
+                </small>
+
             </div>
 
-            <div class="mb-3 d-flex gap-2">
+
+            <!-- BOTÕES -->
+
+            <div class="form-actions">
+
+                <a asp-action="Index"
+                   class="cancel-button">
+                    Cancelar
+                </a>
 
                 <button type="submit"
-                        class="btn btn-primary">
-                    Salvar Central de Custo
+                        class="save-button">
+                    ✓ Salvar Central de Custo
                 </button>
-
-                <a href="/CentralCusto/Index"
-                   class="btn btn-secondary">
-                    Voltar para a Lista
-                </a>
 
             </div>
 
         </form>
 
     </div>
+
 </div>

@@ -1,119 +1,344 @@
 ﻿@model IEnumerable<AppTask.Models.CentralCusto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Central de Custo";
 }
 
-<h1 class="mb-4">Lista de Centrais de Custo</h1>
+<div class="task-page">
 
-<p>
-    <a href="/CentralCusto/Create" class="btn btn-success text-white">
-        Novo
-    </a>
-</p>
+    <!-- CABEÇALHO -->
+    <div class="page-header">
 
-<table class="table table-striped table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th>Nome do Custo</th>
-            <th>Valor Anual Meta</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
+        <div>
+            <span class="page-subtitle">CONTROLE FINANCEIRO</span>
 
-    <tbody>
+            <h1>Central de Custo</h1>
+
+            <p>
+                Gerencie os centros de custo e suas metas anuais.
+            </p>
+        </div>
+
+        <a href="/CentralCusto/Create" class="new-task">
+            <span>+</span>
+            Novo Centro
+        </a>
+
+    </div>
+
+
+    <!-- RESUMO -->
+    <div class="summary">
+
+        <div class="summary-card">
+
+            <div class="summary-icon purple">
+                $
+            </div>
+
+            <div>
+                <small>Total de centros</small>
+                <strong>@Model.Count()</strong>
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon green">
+                ✓
+            </div>
+
+            <div>
+                <small>Meta anual cadastrada</small>
+
+                <strong>
+                    R$
+                    @Model.Sum(x => x.ValorAnualMeta).ToString("N2")
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon orange">
+                $
+            </div>
+
+            <div>
+                <small>Maior meta</small>
+
+                <strong>
+                    R$
+                    @(Model.Any()
+                                        ? Model.Max(x => x.ValorAnualMeta).ToString("N2")
+                                        : "0,00")
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PESQUISA -->
+    <div class="search-area">
+
+        <div class="search-box">
+
+            <span>⌕</span>
+
+            <input type="text"
+                   id="pesquisaCentral"
+                   placeholder="Pesquisar centro de custo..."
+                   onkeyup="filtrarCentrais()" />
+
+        </div>
+
+    </div>
+
+
+    <!-- CABEÇALHO DA LISTA -->
+    <div class="list-header">
+
+        <div>
+            <h2>Centros cadastrados</h2>
+
+            <span>
+                Consulte e gerencie seus centros de custo
+            </span>
+        </div>
+
+        <span class="total-badge">
+            @Model.Count() registros
+        </span>
+
+    </div>
+
+
+    <!-- CARDS -->
+    <div class="tasks-container">
+
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
+            <div class="task-card central-card">
+
+                <!-- TOPO -->
+                <div class="task-top">
+
+                    <div class="task-code">
+                        CÓDIGO #@item.Codigo
+                    </div>
+
+                    <span class="task-status status-progress">
+                        CENTRO DE CUSTO
+                    </span>
+
+                </div>
+
+
+                <!-- ÍCONE -->
+                <div class="central-icon">
+                    $
+                </div>
+
+
+                <!-- NOME -->
+                <h3>
                     @Html.DisplayFor(modelItem => item.NomeCusto)
-                </td>
+                </h3>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.ValorAnualMeta)
-                </td>
 
-                <td>
-                    <a href="/CentralCusto/Edit/@item.Codigo"
-                       class="btn btn-primary btn-sm text-white">
-                        Alterar
-                    </a>
+                <!-- INFORMAÇÕES -->
+                <div class="task-details">
+
+                    <div class="detail">
+
+                        <span class="detail-icon">
+                            $
+                        </span>
+
+                        <div>
+
+                            <small>
+                                Meta anual
+                            </small>
+
+                            <strong>
+                                R$
+                                @item.ValorAnualMeta.ToString("N2")
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <span class="detail-icon">
+                            #
+                        </span>
+
+                        <div>
+
+                            <small>
+                                Identificação
+                            </small>
+
+                            <strong>
+                                @item.Codigo
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- AÇÕES -->
+                <div class="task-actions">
 
                     <a href="/CentralCusto/Details/@item.Codigo"
-                       class="btn btn-success btn-sm text-white"
-                       style="background-color: #006400;">
-                        Detalhe
+                       class="action view">
+
+                        👁 Visualizar
+
                     </a>
 
+
+                    <a href="/CentralCusto/Edit/@item.Codigo"
+                       class="action edit">
+
+                        ✎ Editar
+
+                    </a>
+
+
                     <button type="button"
-                            class="btn btn-danger btn-sm text-white"
+                            class="action delete"
                             data-bs-toggle="modal"
                             data-bs-target="#deleteModal"
                             data-id="@item.Codigo"
-                            data-nome="@item.NomeCusto">
-                        Delete
+                            data-name="@item.NomeCusto">
+
+                        🗑 Excluir
+
                     </button>
-                </td>
-            </tr>
+
+                </div>
+
+            </div>
         }
-    </tbody>
-</table>
+
+    </div>
 
 
-<!-- Modal de Confirmação de Exclusão -->
+    <!-- CASO NÃO TENHA CENTROS -->
+    @if (!Model.Any())
+    {
+        <div class="empty">
 
-<div class="modal fade"
-     id="deleteModal"
-     tabindex="-1"
-     aria-labelledby="deleteModalLabel"
-     aria-hidden="true">
-
-    <div class="modal-dialog">
-
-        <div class="modal-content">
-
-            <div class="modal-header bg-danger text-white">
-
-                <h5 class="modal-title" id="deleteModalLabel">
-                    Confirmação de Exclusão
-                </h5>
-
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close">
-                </button>
-
+            <div class="empty-icon">
+                $
             </div>
 
-            <div class="modal-body">
+            <h3>
+                Nenhum centro de custo cadastrado
+            </h3>
 
-                Deseja realmente excluir a central de custo:
+            <p>
+                Cadastre um centro de custo para começar.
+            </p>
 
-                <strong id="centralCustoNome"></strong>?
+            <a href="/CentralCusto/Create"
+               class="new-task">
 
-            </div>
+                + Novo Centro
 
-            <div class="modal-footer">
+            </a>
 
-                <button type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal">
-                    Cancelar
-                </button>
+        </div>
+    }
 
-                <form id="deleteForm"
-                      method="post"
-                      action="">
 
-                    @Html.AntiForgeryToken()
+    <!-- MODAL DE EXCLUSÃO -->
+    <div class="modal fade"
+         id="deleteModal"
+         tabindex="-1"
+         aria-hidden="true">
 
-                    <button type="submit"
-                            class="btn btn-danger">
-                        Sim, Excluir
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content delete-modal">
+
+                <div class="modal-header-custom">
+
+                    <div class="warning-icon">
+                        !
+                    </div>
+
+                    <button type="button"
+                            class="close-button"
+                            data-bs-dismiss="modal">
+
+                        ×
+
                     </button>
 
-                </form>
+                </div>
+
+
+                <div class="modal-body-custom">
+
+                    <h3>
+                        Excluir centro de custo?
+                    </h3>
+
+                    <p>
+                        Você realmente deseja excluir:
+                    </p>
+
+                    <strong id="centralCustoNome"></strong>
+
+                    <p class="warning-text">
+                        Essa ação não poderá ser desfeita.
+                    </p>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button type="button"
+                            class="cancel-button"
+                            data-bs-dismiss="modal">
+
+                        Cancelar
+
+                    </button>
+
+
+                    <form id="deleteForm"
+                          method="post"
+                          action="">
+
+                        @Html.AntiForgeryToken()
+
+                        <button type="submit"
+                                class="confirm-delete">
+
+                            Sim, excluir
+
+                        </button>
+
+                    </form>
+
+                </div>
 
             </div>
 
@@ -128,22 +353,68 @@
 
     <script>
 
-        var deleteModal = document.getElementById("deleteModal");
+        // PESQUISA
+        function filtrarCentrais() {
 
-        deleteModal.addEventListener("show.bs.modal", function (event) {
+            const pesquisa =
+                document.getElementById("pesquisaCentral")
+                    .value
+                    .toLowerCase();
 
-            var button = event.relatedTarget;
+            const centros =
+                document.querySelectorAll(".central-card");
 
-            var id = button.getAttribute("data-id");
+            centros.forEach(function (centro) {
 
-            var nome = button.getAttribute("data-nome");
+                const texto =
+                    centro.innerText.toLowerCase();
 
-            document.getElementById("centralCustoNome").textContent = nome;
+                if (texto.includes(pesquisa)) {
 
-            document.getElementById("deleteForm").action =
-                "/CentralCusto/Delete/" + id;
+                    centro.style.display = "";
 
-        });
+                } else {
+
+                    centro.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+
+        // MODAL DE EXCLUSÃO
+        const deleteModal =
+            document.getElementById("deleteModal");
+
+        deleteModal.addEventListener(
+            "show.bs.modal",
+            function (event) {
+
+                const button =
+                    event.relatedTarget;
+
+                const id =
+                    button.getAttribute("data-id");
+
+                const nome =
+                    button.getAttribute("data-name");
+
+
+                document.getElementById(
+                    "centralCustoNome"
+                ).textContent = nome;
+
+
+                document.getElementById(
+                    "deleteForm"
+                ).action =
+                    "/CentralCusto/Delete/" + id;
+
+            }
+        );
 
     </script>
+
 }
