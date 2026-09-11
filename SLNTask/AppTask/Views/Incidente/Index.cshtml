@@ -1,61 +1,223 @@
-﻿@model IEnumerable<AppTask.Models.Incidente>
+﻿
+@model IEnumerable<AppTask.Models.Incidente>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Incidentes";
 }
 
-<h1 class="mb-4">Lista de Incidentes</h1>
+<div class="task-page">
 
-<p>
-    <a href="/Incidente/Create" class="btn btn-success text-white">Novo</a>
-</p>
+    <div class="page-header">
+        <div>
+            <span class="page-subtitle">GERENCIAMENTO DE INCIDENTES</span>
+            <h1>Lista de Incidentes</h1>
+            <p>Gerencie os incidentes cadastrados no sistema.</p>
+        </div>
 
-<table class="table table-striped table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th>Descrição do Problema</th>
-            <th>Data do Incidente</th>
-            <th>Solução</th>
-            <th>Resolvido</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
+        <a asp-action="Create" class="new-task">
+            <span>＋</span> Novo incidente
+        </a>
+    </div>
 
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.DescricaoProblema</td>
-                <td>@item.DataIncidente</td>
-                <td>@item.Solucao</td>
-                <td>@item.Resolvido</td>
 
-                <td>
-                    <a href="/Incidente/Edit/@item.Codigo"
-                       class="btn btn-primary btn-sm text-white">
-                        Alterar
-                    </a>
+    <div class="summary">
 
-                    <a href="/Incidente/Details/@item.Codigo"
-                       class="btn btn-success btn-sm text-white"
-                       style="background-color: #006400;">
-                        Detalhe
-                    </a>
+        <div class="summary-card">
+            <div class="summary-icon purple">!</div>
+            <div>
+                <span>Total</span>
+                <strong>@Model.Count()</strong>
+            </div>
+        </div>
 
-                    <button type="button"
-                            class="btn btn-danger btn-sm text-white"
-                            data-bs-toggle="modal"
-                            data-bs-target="#deleteModal"
-                            data-id="@item.Codigo"
-                            data-descricao="@item.DescricaoProblema"
-                            data-action="/Incidente/Delete/@item.Codigo">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <div class="summary-card">
+            <div class="summary-icon orange">!</div>
+            <div>
+                <span>Pendentes</span>
+                <strong>
+                    @Model.Count(x => x.Resolvido.ToLower() != "sim")
+                </strong>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-icon green">✓</div>
+            <div>
+                <span>Resolvidos</span>
+                <strong>
+                    @Model.Count(x => x.Resolvido.ToLower() == "sim")
+                </strong>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="search-area">
+        <div class="search-box">
+            <span>⌕</span>
+
+            <input type="text"
+                   id="incidenteSearch"
+                   placeholder="Pesquisar incidente..." />
+        </div>
+    </div>
+
+
+    <div class="list-header">
+        <h2>Incidentes cadastrados</h2>
+
+        <span class="total-badge">
+            @Model.Count() registros
+        </span>
+    </div>
+
+
+    @if (!Model.Any())
+    {
+        <div class="empty">
+
+            <div class="empty-icon">!</div>
+
+            <h3>Nenhum incidente cadastrado</h3>
+
+            <p>
+                Cadastre um novo incidente para começar.
+            </p>
+
+        </div>
+    }
+    else
+    {
+        <div class="tasks-container">
+
+            @foreach (var item in Model)
+            {
+                <div class="task-card"
+                     data-incidente-search="@($"{item.DescricaoProblema} {item.Solucao} {item.Resolvido}")">
+
+                    <div class="task-top">
+
+                        <span class="task-code">
+                            #@item.Codigo
+                        </span>
+
+                        @if (item.Resolvido?.ToLower() == "sim")
+                        {
+                            <span class="task-status status-completed">
+                                Resolvido
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="task-status status-pending">
+                                Pendente
+                            </span>
+                        }
+
+                </div>
+
+
+                <div class="task-info">
+
+                    <h3>
+                        @item.DescricaoProblema
+                    </h3>
+
+                </div>
+
+
+                <div class="task-details">
+
+                    <div class="detail">
+
+                        <span class="detail-icon">
+                            ◷
+                        </span>
+
+                        <div>
+                            <small>Data do incidente</small>
+
+                            <strong>
+                                @item.DataIncidente.ToString("dd/MM/yyyy HH:mm")
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <span class="detail-icon">
+                            ✓
+                        </span>
+
+                        <div>
+                            <small>Solução</small>
+
+                            <strong>
+                                @(string.IsNullOrWhiteSpace(item.Solucao)
+                                                            ? "Não informada"
+                                                            : item.Solucao)
+                        </strong>
+                    </div>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span class="detail-icon">
+                                !
+                            </span>
+
+                            <div>
+                                <small>Resolvido</small>
+
+                                <strong>
+                                    @item.Resolvido
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="task-actions">
+
+                        <a asp-action="Details"
+                           asp-route-id="@item.Codigo"
+                           class="action view">
+                            Detalhes
+                        </a>
+
+                        <a asp-action="Edit"
+                           asp-route-id="@item.Codigo"
+                           class="action edit">
+                            Alterar
+                        </a>
+
+                        <button type="button"
+                                class="action delete"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteModal"
+                                data-id="@item.Codigo"
+                                data-descricao="@item.DescricaoProblema"
+                                data-action="/Incidente/Delete/@item.Codigo">
+                            Excluir
+                        </button>
+
+                    </div>
+
+                </div>
+                }
+
+        </div>
+    }
+
+</div>
+
 
 <!-- Modal de Confirmação de Exclusão -->
 <div class="modal fade"
@@ -64,70 +226,134 @@
      aria-labelledby="deleteModalLabel"
      aria-hidden="true">
 
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <div class="modal-dialog modal-dialog-centered">
 
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="deleteModalLabel">
-                    Confirmação de Exclusão
-                </h5>
+        <div class="modal-content delete-modal">
+
+            <div class="modal-header-custom">
+
+                <div class="warning-icon">
+                    !
+                </div>
 
                 <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close">
+                        class="close-button"
+                        data-bs-dismiss="modal">
+                    ×
                 </button>
+
             </div>
 
-            <div class="modal-body">
-                Deseja realmente excluir o incidente:
-                <strong id="incidenteDescricao"></strong>?
+
+            <div class="modal-body-custom">
+
+                <h3>
+                    Confirmação de Exclusão
+                </h3>
+
+                <p>
+                    Deseja realmente excluir o incidente:
+                </p>
+
+                <strong id="incidenteDescricao"></strong>
+
+                <p class="warning-text">
+                    Essa ação não poderá ser desfeita.
+                </p>
+
             </div>
 
-            <div class="modal-footer">
+
+            <div class="modal-actions">
 
                 <button type="button"
-                        class="btn btn-secondary"
+                        class="cancel-button"
                         data-bs-dismiss="modal">
                     Cancelar
                 </button>
 
-                <form id="deleteForm" method="post" action="">
+                <form id="deleteForm"
+                      method="post"
+                      action="">
+
                     @Html.AntiForgeryToken()
 
-                    <button type="submit" class="btn btn-danger">
+                    <button type="submit"
+                            class="confirm-delete">
                         Sim, Excluir
                     </button>
+
                 </form>
 
             </div>
+
         </div>
+
     </div>
+
 </div>
 
+
 @section Scripts {
+
     <script>
-        var deleteModal = document.getElementById('deleteModal');
 
-        deleteModal.addEventListener('show.bs.modal', function (event) {
+        const incidenteSearch =
+            document.getElementById("incidenteSearch");
 
-            var button = event.relatedTarget;
+        if (incidenteSearch) {
 
-            var descricao =
-                button.getAttribute('data-descricao');
+            incidenteSearch.addEventListener("input", function () {
 
-            var action =
-                button.getAttribute('data-action');
+                const texto =
+                    this.value.toLowerCase().trim();
 
-            var modalDescricaoSpan =
-                deleteModal.querySelector('#incidenteDescricao');
+                document
+                    .querySelectorAll("[data-incidente-search]")
+                    .forEach(function (card) {
 
-            modalDescricaoSpan.textContent = descricao;
+                        const conteudo =
+                            card
+                                .getAttribute("data-incidente-search")
+                                .toLowerCase();
 
-            var deleteForm =
-                deleteModal.querySelector('#deleteForm');
+                        card.style.display =
+                            conteudo.includes(texto)
+                                ? ""
+                                : "none";
+                    });
+            });
+        }
 
-            deleteForm.action = action;
-        });
+
+        const deleteModal =
+            document.getElementById("deleteModal");
+
+        if (deleteModal) {
+
+            deleteModal.addEventListener(
+                "show.bs.modal",
+                function (event) {
+
+                    const button =
+                        event.relatedTarget;
+
+                    const descricao =
+                        button.getAttribute("data-descricao");
+
+                    const action =
+                        button.getAttribute("data-action");
+
+                    document
+                        .getElementById("incidenteDescricao")
+                        .textContent = descricao;
+
+                    document
+                        .getElementById("deleteForm")
+                        .action = action;
+                }
+            );
+        }
+
     </script>
 }

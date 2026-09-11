@@ -1,69 +1,247 @@
 ﻿@model AppTask.Models.Tarefa
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Tarefa";
 }
 
-<h1>Edit</h1>
+<div class="form-page">
 
-<h4>Tarefa</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Codigo" />
-            <div class="form-group">
-                <label asp-for="Descricao" class="control-label"></label>
-                <input asp-for="Descricao" class="form-control" />
-                <span asp-validation-for="Descricao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DataPlanejada" class="control-label"></label>
-                <input asp-for="DataPlanejada" class="form-control" />
-                <span asp-validation-for="DataPlanejada" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DataIniciada" class="control-label"></label>
-                <input asp-for="DataIniciada" class="form-control" />
-                <span asp-validation-for="DataIniciada" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DataFinalizada" class="control-label"></label>
-                <input asp-for="DataFinalizada" class="form-control" />
-                <span asp-validation-for="DataFinalizada" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DataCancelada" class="control-label"></label>
-                <input asp-for="DataCancelada" class="form-control" />
-                <span asp-validation-for="DataCancelada" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StatusTarefa" class="control-label"></label>
-                <input asp-for="StatusTarefa" class="form-control" />
-                <span asp-validation-for="StatusTarefa" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Prazo" class="control-label"></label>
-                <input asp-for="Prazo" class="form-control" />
-                <span asp-validation-for="Prazo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FuncionarioId" class="control-label"></label>
-                <select asp-for="FuncionarioId" class="form-control" asp-items="ViewBag.FuncionarioId"></select>
-                <span asp-validation-for="FuncionarioId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="page-header">
+
+        <div>
+            <span class="page-subtitle">GERENCIAMENTO DE TAREFAS</span>
+
+            <h1>Editar Tarefa</h1>
+
+            <p>
+                Atualize as informações da tarefa selecionada.
+            </p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            ← Voltar
+        </a>
+
     </div>
+
+
+    <div class="form-card">
+
+        <div class="form-card-header">
+
+            <div class="form-icon task-form-icon">
+                ✓
+            </div>
+
+            <div>
+                <h2>Informações da tarefa</h2>
+
+                <p>
+                    Altere os dados abaixo e salve as modificações.
+                </p>
+            </div>
+
+        </div>
+
+
+        <form asp-action="Edit" method="post">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" asp-for="Codigo" />
+
+
+            <div asp-validation-summary="ModelOnly"
+                 class="validation-message">
+            </div>
+
+
+            <div class="input-group">
+
+                <label asp-for="Descricao">
+                    Descrição
+                </label>
+
+                <input asp-for="Descricao"
+                       class="form-control"
+                       placeholder="Digite a descrição da tarefa"
+                       autocomplete="off" />
+
+                <span asp-validation-for="Descricao"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label asp-for="DataPlanejada">
+                        Data Planejada
+                    </label>
+
+                    <input asp-for="DataPlanejada"
+                           class="form-control" />
+
+                    <span asp-validation-for="DataPlanejada"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label asp-for="DataIniciada">
+                        Data Iniciada
+                    </label>
+
+                    <input asp-for="DataIniciada"
+                           class="form-control" />
+
+                    <span asp-validation-for="DataIniciada"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label asp-for="DataFinalizada">
+                        Data Finalizada
+                    </label>
+
+                    <input asp-for="DataFinalizada"
+                           class="form-control" />
+
+                    <span asp-validation-for="DataFinalizada"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label asp-for="DataCancelada">
+                        Data Cancelada
+                    </label>
+
+                    <input asp-for="DataCancelada"
+                           class="form-control" />
+
+                    <span asp-validation-for="DataCancelada"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label asp-for="StatusTarefa">
+                    Status da Tarefa
+                </label>
+
+                <select asp-for="StatusTarefa"
+                        class="form-select">
+
+                    <option value="Pendente">
+                        Pendente
+                    </option>
+
+                    <option value="Em Andamento">
+                        Em Andamento
+                    </option>
+
+                    <option value="Concluído">
+                        Concluído
+                    </option>
+
+                    <option value="Cancelado">
+                        Cancelado
+                    </option>
+
+                </select>
+
+                <span asp-validation-for="StatusTarefa"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label asp-for="Prazo">
+                    Prazo
+                </label>
+
+                <input asp-for="Prazo"
+                       class="form-control"
+                       placeholder="Ex: Em dia, Em atraso"
+                       autocomplete="off" />
+
+                <span asp-validation-for="Prazo"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label asp-for="FuncionarioId">
+                    Funcionário Responsável
+                </label>
+
+                <select asp-for="FuncionarioId"
+                        class="form-select"
+                        asp-items="ViewBag.FuncionarioId">
+
+                    <option value="">
+                        -- Selecione um Funcionário --
+                    </option>
+
+                </select>
+
+                <span asp-validation-for="FuncionarioId"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a asp-action="Index"
+                   class="cancel-button">
+                    Cancelar
+                </a>
+
+                <button type="submit"
+                        class="save-button">
+                    ✓ Salvar alterações
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
 }

@@ -1,4 +1,5 @@
-﻿@model AppTask.Models.Funcionario
+﻿
+@model AppTask.Models.Funcionario
 
 @{
     ViewData["Title"] = "Editar Funcionário";
@@ -9,7 +10,9 @@
     <div class="page-header">
 
         <div>
-            <span class="page-subtitle">GERENCIAMENTO DE FUNCIONÁRIOS</span>
+            <span class="page-subtitle">
+                GERENCIAMENTO DE FUNCIONÁRIOS
+            </span>
 
             <h1>Editar Funcionário</h1>
 
@@ -44,17 +47,16 @@
         </div>
 
 
-        <div asp-validation-summary="ModelOnly"
-             class="validation-message">
-        </div>
-
-
         <form asp-action="Edit" method="post">
+
+            @Html.AntiForgeryToken()
 
             <input type="hidden" asp-for="Codigo" />
 
+            <div asp-validation-summary="ModelOnly"
+                 class="validation-message">
+            </div>
 
-            <!-- NOME -->
 
             <div class="input-group">
 
@@ -64,7 +66,8 @@
 
                 <input asp-for="Nome"
                        class="form-control"
-                       placeholder="Digite o nome do funcionário" />
+                       placeholder="Digite o nome do funcionário"
+                       autocomplete="off" />
 
                 <span asp-validation-for="Nome"
                       class="text-danger">
@@ -72,8 +75,6 @@
 
             </div>
 
-
-            <!-- CARGO -->
 
             <div class="input-group">
 
@@ -83,7 +84,8 @@
 
                 <input asp-for="Cargo"
                        class="form-control"
-                       placeholder="Digite o cargo do funcionário" />
+                       placeholder="Digite o cargo do funcionário"
+                       autocomplete="off" />
 
                 <span asp-validation-for="Cargo"
                       class="text-danger">
@@ -92,8 +94,6 @@
             </div>
 
 
-            <!-- GERENTE -->
-
             <div class="input-group">
 
                 <label asp-for="CodigoGerente">
@@ -101,8 +101,8 @@
                 </label>
 
                 <select asp-for="CodigoGerente"
-                        class="form-control"
-                        asp-items="ViewBag.ListaGerente">
+                        class="form-select"
+                        asp-items="ViewBag.ListaGerentes">
 
                     <option value="">
                         -- Selecione um Gerente --
@@ -120,8 +120,6 @@
 
             </div>
 
-
-            <!-- BOTÕES -->
 
             <div class="form-actions">
 
@@ -151,3 +149,5 @@
     }
 
 }
+
+

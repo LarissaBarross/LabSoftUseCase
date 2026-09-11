@@ -1,42 +1,129 @@
-﻿@model AppTask.Models.Incidente
+﻿
+@model AppTask.Models.Incidente
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes do Incidente";
 }
 
-<h1>Details</h1>
+<div class="form-page">
 
-<div>
-    <h4>Incidente</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DescricaoProblema)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DescricaoProblema)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataIncidente)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DataIncidente)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Solucao)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Solucao)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Resolvido)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Resolvido)
-        </dd>
-    </dl>
+    <div class="page-header">
+
+        <div>
+            <span class="page-subtitle">
+                GERENCIAMENTO DE INCIDENTES
+            </span>
+
+            <h1>Detalhes do Incidente</h1>
+
+            <p>
+                Consulte as informações deste incidente.
+            </p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            ← Voltar
+        </a>
+
+    </div>
+
+
+    <div class="form-card details-card">
+
+        <div class="form-card-header">
+
+            <div class="form-icon incident-form-icon">
+                !
+            </div>
+
+            <div>
+                <h2>Informações do incidente</h2>
+
+                <p>
+                    Dados cadastrados no sistema.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="details-content">
+
+            <div class="details-item">
+                <span class="details-label">
+                    Descrição do Problema
+                </span>
+
+                <strong class="details-value">
+                    @Html.DisplayFor(model => model.DescricaoProblema)
+                </strong>
+            </div>
+
+
+            <div class="details-item">
+                <span class="details-label">
+                    Data do Incidente
+                </span>
+
+                <strong class="details-value">
+                    @Model.DataIncidente.ToString("dd/MM/yyyy HH:mm")
+                </strong>
+            </div>
+
+
+            <div class="details-item">
+                <span class="details-label">
+                    Solução
+                </span>
+
+                <strong class="details-value">
+                    @(string.IsNullOrWhiteSpace(Model.Solucao)
+                                        ? "Não informada"
+                                        : Model.Solucao)
+                </strong>
+            </div>
+
+
+            <div class="details-item">
+                <span class="details-label">
+                    Resolvido
+                </span>
+
+                <strong class="details-value">
+                    @Html.DisplayFor(model => model.Resolvido)
+                </strong>
+            </div>
+
+
+            <div class="details-item">
+                <span class="details-label">
+                    Código do Incidente
+                </span>
+
+                <strong class="details-value">
+                    #@Model.Codigo
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="form-actions">
+
+            <a asp-action="Index"
+               class="cancel-button">
+                Voltar
+            </a>
+
+            <a asp-action="Edit"
+               asp-route-id="@Model.Codigo"
+               class="save-button details-edit-button">
+                ✎ Editar
+            </a>
+
+        </div>
+
+    </div>
+
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Codigo">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+

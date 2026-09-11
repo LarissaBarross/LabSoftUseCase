@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 
 namespace AppTask.Models;
@@ -23,5 +24,5 @@ public partial class Tarefa
 
     public int FuncionarioId { get; set; }
 
-    public virtual Funcionario Funcionario { get; set; } = null!;
+    public virtual Funcionario? Funcionario { get; set; }
 }

@@ -1,69 +1,122 @@
-﻿@model AppTask.Models.Funcionario
+﻿
+@model AppTask.Models.Funcionario
 
 @{
-    ViewData["Title"] = "Detalhes do funcionário";
+    ViewData["Title"] = "Detalhes do Funcionário";
 }
 
-<div class="detail-page-header">
-    <div>
-        <div class="eyebrow">Cadastros</div>
-        <h1>Detalhes do funcionário</h1>
-        <p>Visualize as informações do funcionário selecionado.</p>
-    </div>
+<div class="form-page">
 
-    <div class="detail-actions">
-        <a asp-action="Edit"
-           asp-route-id="@Model.Codigo"
-           class="primary-btn">
-            Editar funcionário
-        </a>
+    <div class="page-header">
+
+        <div>
+            <span class="page-subtitle">
+                GERENCIAMENTO DE FUNCIONÁRIOS
+            </span>
+
+            <h1>Detalhes do Funcionário</h1>
+
+            <p>
+                Visualize as informações do funcionário selecionado.
+            </p>
+        </div>
 
         <a asp-action="Index"
-           class="secondary-btn">
+           class="back-button">
             ← Voltar
         </a>
-    </div>
-</div>
-
-<div class="detail-card">
-
-    <div class="profile-heading">
-
-        <span class="profile-avatar">
-            @Model.Nome.Substring(0, 1).ToUpper()
-        </span>
-
-        <div>
-            <span class="detail-label">Funcionário</span>
-            <h2>@Model.Nome</h2>
-        </div>
 
     </div>
 
-    <div class="detail-grid">
 
-        <div>
-            <span class="detail-label">Nome completo</span>
-            <strong>@Model.Nome</strong>
+    <div class="form-card details-card">
+
+        <div class="form-card-header">
+
+            <div class="form-icon funcionario-form-icon">
+                👤
+            </div>
+
+            <div>
+                <h2>Informações do funcionário</h2>
+
+                <p>
+                    Dados cadastrados no sistema.
+                </p>
+            </div>
+
         </div>
 
-        <div>
-            <span class="detail-label">Cargo</span>
-            <strong>@Model.Cargo</strong>
+
+        <div class="details-content">
+
+            <div class="details-item">
+
+                <span class="details-label">
+                    Nome completo
+                </span>
+
+                <strong class="details-value">
+                    @Model.Nome
+                </strong>
+
+            </div>
+
+
+            <div class="details-item">
+
+                <span class="details-label">
+                    Cargo
+                </span>
+
+                <strong class="details-value">
+                    @Model.Cargo
+                </strong>
+
+            </div>
+
+
+            <div class="details-item">
+
+                <span class="details-label">
+                    Gerente
+                </span>
+
+                <strong class="details-value">
+                    @(Model.Gerente?.Nome ?? "Sem gerente")
+                </strong>
+
+            </div>
+
+
+            <div class="details-item">
+
+                <span class="details-label">
+                    Código do Funcionário
+                </span>
+
+                <strong class="details-value">
+                    #@Model.Codigo
+                </strong>
+
+            </div>
+
         </div>
 
-        <div>
-            <span class="detail-label">Gerente</span>
-            <strong>
-                @(Model.Gerente?.Nome ?? "Sem gerente")
-            </strong>
-        </div>
 
-        <div>
-            <span class="detail-label">Código</span>
-            <strong>
-                #@Model.Codigo
-            </strong>
+        <div class="form-actions">
+
+            <a asp-action="Index"
+               class="cancel-button">
+                Voltar
+            </a>
+
+            <a asp-action="Edit"
+               asp-route-id="@Model.Codigo"
+               class="save-button details-edit-button">
+                ✎ Editar
+            </a>
+
         </div>
 
     </div>
