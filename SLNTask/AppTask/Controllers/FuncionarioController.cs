@@ -171,11 +171,27 @@ namespace AppTask.Controllers
         {
             var funcionario = await _context.Funcionarios.FindAsync(id);
 
-            if (funcionario != null)
+            if (funcionario == null)
             {
-                _context.Funcionarios.Remove(funcionario);
+                return NotFound();
             }
 
+            // Localiza os funcionários que possuem este funcionário como gerente
+            var subordinados = await _context.Funcionarios
+                .Where(f => f.CodigoGerente == id)
+                .ToListAsync();
+
+            // Remove o vínculo dos subordinados antes da exclusão
+            foreach (var subordinado in subordinados)
+            {
+                subordinado.CodigoGerente = null;
+            }
+
+            // Salva primeiro a remoção dos vínculos
+            await _context.SaveChangesAsync();
+
+            // Agora exclui o funcionário
+            _context.Funcionarios.Remove(funcionario);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
@@ -187,11 +203,15 @@ namespace AppTask.Controllers
         }
 
         // Carrega a lista de funcionários que podem ser gerentes
-        private void CarregarGerentes(int? gerenteSelecionado = null, int? funcionarioAtual = null)
+        private void CarregarGerentes(
+            int? gerenteSelecionado = null,
+            int? funcionarioAtual = null)
         {
             var funcionarios = _context.Funcionarios
                 .AsNoTracking()
-                .Where(f => funcionarioAtual == null || f.Codigo != funcionarioAtual)
+                .Where(f =>
+                    funcionarioAtual == null ||
+                    f.Codigo != funcionarioAtual)
                 .OrderBy(f => f.Nome)
                 .ToList();
 
