@@ -1,5 +1,4 @@
-﻿
-@model AppTask.Models.Funcionario
+﻿@model AppTask.Models.Funcionario
 
 @{
     ViewData["Title"] = "Novo Funcionário";
@@ -10,9 +9,7 @@
     <div class="page-header">
 
         <div>
-            <span class="page-subtitle">
-                GERENCIAMENTO DE FUNCIONÁRIOS
-            </span>
+            <span class="page-subtitle">GERENCIAMENTO DE FUNCIONÁRIOS</span>
 
             <h1>Novo Funcionário</h1>
 
@@ -26,6 +23,7 @@
         </a>
 
     </div>
+
 
     <div class="form-card">
 
@@ -45,57 +43,62 @@
 
         </div>
 
-        <div asp-validation-summary="All"
-             class="validation-message">
-        </div>
+
+        <div asp-validation-summary="All" class="validation-message"></div>
+
 
         <form asp-action="Create" method="post">
 
             @Html.AntiForgeryToken()
 
+
+            <!-- NOME -->
+
             <div class="input-group">
 
-                <label asp-for="Nome">
+                <label for="Nome">
                     Nome
                 </label>
 
-                <input asp-for="Nome"
+                <input type="text"
+                       id="Nome"
+                       name="Nome"
                        class="form-control"
                        placeholder="Digite o nome do funcionário"
-                       autocomplete="off" />
-
-                <span asp-validation-for="Nome"
-                      class="text-danger">
-                </span>
+                       required />
 
             </div>
 
+
+            <!-- CARGO -->
+
             <div class="input-group">
 
-                <label asp-for="Cargo">
+                <label for="Cargo">
                     Cargo
                 </label>
 
-                <input asp-for="Cargo"
+                <input type="text"
+                       id="Cargo"
+                       name="Cargo"
                        class="form-control"
                        placeholder="Digite o cargo do funcionário"
-                       autocomplete="off" />
-
-                <span asp-validation-for="Cargo"
-                      class="text-danger">
-                </span>
+                       required />
 
             </div>
 
+
+            <!-- GERENTE -->
+
             <div class="input-group">
 
-                <label asp-for="CodigoGerente">
+                <label for="CodigoGerente">
                     Gerente
                 </label>
 
                 <select asp-for="CodigoGerente"
-                        class="form-select"
-                        asp-items="ViewBag.ListaGerentes">
+                        class="form-control"
+                        asp-items="ViewBag.ListaGerente">
 
                     <option value="">
                         -- Selecione um Gerente --
@@ -112,6 +115,9 @@
                 </span>
 
             </div>
+
+
+            <!-- BOTÕES -->
 
             <div class="form-actions">
 
@@ -132,6 +138,7 @@
     </div>
 
 </div>
+
 
 @section Scripts {
 
